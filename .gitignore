@@ -1,2 +1,4 @@
 *.txt.gz
 *.gz
+*Seurat.rda
+*/data/*
