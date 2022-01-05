@@ -48,6 +48,7 @@ save(markers.tTestUpAll, markers.tTestUpSome, file = 'rdas/Tasic2018_allen_mouse
 # filter markers by FDR < 0.05
 alpha = 0.05
 markers.All = lapply(markers.tTestUpAll, function(x) as.data.frame(x) %>% rownames_to_column(var = "Gene") %>% filter(FDR < alpha))
+names(markers.All) = gsub('/','.', names(markers.All))
 
 xlsxFileName = "tables/AllenMouse_markerGenes_UpInAllPairwise.xlsx"
 write_xlsx(markers.All, path = xlsxFileName)

@@ -140,6 +140,7 @@ lmList = lapply(cellTypes, function(i){
 lmList[['Pvalb']]
 p.value =  sapply(lmList, function(x) x$coefficients['GenotypeHT','Pr(>|t|)'])
 FDR = p.adjust(p.value,'BH') 
+p.value[order(p.value)]
 FDR[order(FDR)]
 
 

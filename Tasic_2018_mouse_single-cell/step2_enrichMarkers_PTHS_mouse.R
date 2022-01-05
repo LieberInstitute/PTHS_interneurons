@@ -65,6 +65,9 @@ enrichMat1$DEGdirGroup = factor(ss(rownames(enrichMat1),'\\.', 3),levels = c('Up
 enrichMat1$cutoffGroup = ss(rownames(enrichMat1),'\\.', 4)
 enrichMat1$markerGroup = ss(rownames(enrichMat1),'\\.', 5)
 enrichMat1 = enrichMat1 %>% mutate(FDR = p.adjust(p.value, 'BH'))
+
+enrichMat1 %>% arrange(p.value) %>% 
+  writexl::write_xlsx('tables/overlapDEG_FisherEnrichment_plot_AllenMarkerGenesAllGroups.xlsx')
 signifEnrichMat1 = enrichMat1 %>% filter(FDR < alpha & OR > 1)
 # table(signifEnrichMat1$ageGroup, signifEnrichMat1$markerGroup, signifEnrichMat1$cutoffGroup)
 
@@ -116,6 +119,20 @@ ggplot(subset(dat, cutoffGroup =='UpInAll' & ageGroup =='p1'),
 dev.off()
 
 
+pdf('plots/Tasic_2018_Allen_mouse_markerEnrichment_PTHSmouse_AdultDEG.pdf', height = 8, width = 5)
+ggplot(subset(dat, cutoffGroup =='UpInAll' & ageGroup =='Adult'), 
+       aes(x = markerGroup, y = OR, fill = subclass_label, alpha = FDR_signif, color = FDR_signif)) +
+  geom_bar(stat = 'identity') + coord_flip() + scale_y_log10() +
+  geom_errorbar(aes(ymin = OR.conf.int.min, ymax = OR.conf.int.max), width=0.2) +
+  facet_grid(class_label ~ DEGdirGroup, scales = 'free_y', space = 'free') + 
+  scale_fill_manual( values = subclass_color, guide = FALSE) + 
+  scale_alpha_manual( values = c(0.5,1), guide = FALSE) + 
+  scale_color_manual( values = c(NA,'black'), guide = FALSE) + 
+  geom_hline(yintercept = 1, color = 'black') + 
+  xlab('Cell type') + ylab('Odds Ratio') + 
+  theme_bw(base_size = 12)
+dev.off()
+
 
 ###################################
 # load in PTHS mouse by model DESeq object #
@@ -139,6 +156,10 @@ enrichMat2$DEGdirGroup = factor(ss(rownames(enrichMat2),'\\.', 3),levels = c('Up
 enrichMat2$cutoffGroup = ss(rownames(enrichMat2),'\\.', 4)
 enrichMat2$markerGroup = ss(rownames(enrichMat2),'\\.', 5)
 enrichMat2 = enrichMat2 %>% mutate(FDR = p.adjust(p.value, 'BH'))
+
+enrichMat2 %>% arrange(p.value) %>% 
+  writexl::write_xlsx('tables/overlapDEGbyGenotype_FisherEnrichment_plot_AllenMarkerGenesAllGroups.xlsx')
+
 
 # plot enrichments 
 dat2 = cbind(enrichMat2, cellData[enrichMat2$markerGroup,])
@@ -178,16 +199,4 @@ ggplot(subset(dat2, cutoffGroup =='UpInAll' & ageGroup =='Adult'),
 dev.off()
 
 
-ggplot(subset(dat2, cutoffGroup =='UpInAll' & ageGroup =='p1'), 
-       aes(x = markerGroup, y = OR, fill = subclass_label, alpha = FDR_signif, color = FDR_signif)) +
-  geom_bar(stat = 'identity') + coord_flip() + scale_y_log10() +
-  geom_errorbar(aes(ymin = OR.conf.int.min, ymax = OR.conf.int.max), width=0.2) +
-  facet_grid(class_label ~ DEGdirGroup, scales = 'free_y', space = 'free') + 
-  scale_fill_manual( values = subclass_color, guide = FALSE) + 
-  scale_alpha_manual( values = c(0.5,1), guide = FALSE) + 
-  scale_color_manual( values = c(NA,'black'), guide = FALSE) + 
-  geom_hline(yintercept = 1, color = 'black') + 
-  xlab('Cell type') + ylab('Odds Ratio') + 
-  theme_bw(base_size = 12) + 
-  ggtitle('P1 DEGs')
-dev.off()
+
