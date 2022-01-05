@@ -65,6 +65,10 @@ enrichMat1$DEGdirGroup = factor(ss(rownames(enrichMat1),'\\.', 3),levels = c('Up
 enrichMat1$cutoffGroup = ss(rownames(enrichMat1),'\\.', 4)
 enrichMat1$markerGroup = ss(rownames(enrichMat1),'\\.', 5)
 enrichMat1 = enrichMat1 %>% mutate(FDR = p.adjust(p.value, 'BH'))
+
+enrichMat1 %>% arrange(p.value) %>% 
+  writexl::write_xlsx('tables/overlapDEG_FisherEnrichment_plot_AllenMarkerGenesAllGroups.xlsx')
+
 signifEnrichMat1 = enrichMat1 %>% filter(FDR < alpha & OR > 1)
 # table(signifEnrichMat1$ageGroup, signifEnrichMat1$markerGroup, signifEnrichMat1$cutoffGroup)
 
@@ -153,6 +157,10 @@ enrichMat2$DEGdirGroup = factor(ss(rownames(enrichMat2),'\\.', 3),levels = c('Up
 enrichMat2$cutoffGroup = ss(rownames(enrichMat2),'\\.', 4)
 enrichMat2$markerGroup = ss(rownames(enrichMat2),'\\.', 5)
 enrichMat2 = enrichMat2 %>% mutate(FDR = p.adjust(p.value, 'BH'))
+
+enrichMat2 %>% arrange(p.value) %>% 
+  writexl::write_xlsx('tables/overlapDEGbyGenotype_FisherEnrichment_plot_AllenMarkerGenesAllGroups.xlsx')
+
 
 # plot enrichments 
 dat2 = cbind(enrichMat2, cellData[enrichMat2$markerGroup,])

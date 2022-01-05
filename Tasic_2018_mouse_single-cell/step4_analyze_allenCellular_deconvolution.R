@@ -21,7 +21,6 @@ names(subclass_color) = cellData$subclass_label
 ###################################
 # load in PTHS mouse mega DESeq object #
 load('/dcl01/lieber/ajaffe/Brady/mouseRNAseq/mega_tcf4_ages_DESeq2_svaAdj.rda')
-load('/dcl01/lieber/ajaffe/Brady/mouseRNAseq/mega_tcf4_ages_DESeq2_svaAdj.rda')
 
 # get phenotype data
 shared_columns = intersect(names(colData(geneDds$p1)), names(colData(geneDds$Adult)))
