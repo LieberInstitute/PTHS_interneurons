@@ -1,4 +1,8 @@
 *.txt.gz
 *.gz
+*.bw
 *Seurat.rda
 */data/*
+*sce.rda
+*seurat.rda
+Tasic_2018_mouse_single-cell/rdas
