@@ -32,8 +32,8 @@ MF = do.call('cbind',lapply(indList, function(i){
 
 ###################################
 # load in PTHS mouse mega DESeq object #
-load('/dcl01/lieber/ajaffe/Brady/mouseRNAseq/mega_tcf4_ages_DESeq2_svaAdj.rda')
-load('/users/bphan/tcf4/PTHS_mouse/tcf4_mouse/rdas/mega_tcf4_ages_DE_objects_DESeq2.rda')
+load('rdas/mega_tcf4_ages_DESeq2_svaAdj.rda')
+load('rdas/mega_tcf4_ages_DE_objects_DESeq2.rda')
 
 # sample gene expression from PTHS mouse RNA-seq
 geneVstAdult = varianceStabilizingTransformation(geneDds$Adult, blind=FALSE) # in case variances different by design
