@@ -6,3 +6,5 @@
 *sce.rda
 *seurat.rda
 Tasic_2018_mouse_single-cell/rdas
+
+# tar --exclude='Tasic_2018_mouse_single-cell/data' -zcvf  PTHS_interneurons_Tasic_analyes.tar.gz Tasic_2018_mouse_single-cell

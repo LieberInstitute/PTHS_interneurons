@@ -20,7 +20,7 @@ names(subclass_color) = cellData$subclass_label
 
 ###################################
 # load in PTHS mouse mega DESeq object #
-load('/dcl01/lieber/ajaffe/Brady/mouseRNAseq/mega_tcf4_ages_DESeq2_svaAdj.rda')
+load('rdas/mega_tcf4_ages_DESeq2_svaAdj.rda')
 
 # get phenotype data
 shared_columns = intersect(names(colData(geneDds$p1)), names(colData(geneDds$Adult)))
@@ -154,6 +154,7 @@ lmList2 = lapply(cellTypes, function(i){
 lmList2[['Pvalb']]
 p.value2 =  sapply(lmList2, function(x) x$coefficients['GenotypeHT','Pr(>|t|)'])
 FDR2 = p.adjust(p.value2,'BH')
+p.value2[order(p.value2)]
 FDR2[order(FDR2)]
 
 
